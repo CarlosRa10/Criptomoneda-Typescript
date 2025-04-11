@@ -1,0 +1,47 @@
+:root {
+    --white: #ffffff;
+    --primary: #61ECBC;
+    --black: #182339;
+}
+
+html {
+    /* el font-size: 62.5% permite trabajar con rem al mismo tamaño que pixeles */
+    font-size: 62.5%;
+}
+
+body{
+    background-image: url('/bg-1.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    font-family: 'Outfit', sans-serif;
+}
+
+.container {
+    /* max-width: 60rem - aplicación delgada la pantalla - es decir nada en los laterales si no delgada */
+    max-width: 60rem;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.app-title {
+    font-size: 3.8rem;
+    margin-top: 5rem;
+    color: var(--white);
+    line-height: .8;
+}
+
+.app-title span {
+    display: block;
+    color: var(--primary);
+    font-size: 4.4rem;
+}
+
+.content {
+    margin-top: 5rem;
+    padding: 6rem 2rem;
+    background-color: var(--white);
+    border-radius: 1rem;
+    box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+}
