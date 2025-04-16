@@ -1,6 +1,16 @@
 //"store" (almacén de estado global)
 
 import {create} from 'zustand';
+import axios from 'axios';
+
+
+async function getCryptos() {
+    const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=USD'
+    const {data: {Data}} = await axios.get(url)//Desestructurando la respuesta de axios para obtener solo el objeto Data que esta dentro de data.
+    console.log(Data)
+}   
+
+
 
 
 //create: Crea un store de Zustand.
@@ -11,9 +21,7 @@ import {create} from 'zustand';
 
 export const useCryptoStore = create(()=>({
     fetchCryptos: async () => {
-        console.log('Desde fetchCryptos')
-        // const response = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false');
-        // const data = await response.json();
-        // return data;
+        //console.log('Desde fetchCryptos')
+        getCryptos()
     }
 }))
