@@ -15,7 +15,7 @@ export default function CriptoSearchForm() {
                 {currencies.map(currency => (
                     <option 
                         key={currency.code} //clave unica para cada moneda mundo
-                        value={currency.code} //valor que se va a enviar al state
+                        value={currency.code} //valor que se va a enviar al state tierra
                     >
                         {currency.name} {/* nombre de la moneda */}
                     </option>
