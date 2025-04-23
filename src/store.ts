@@ -11,6 +11,9 @@ async function getCryptos() {
     //console.log(Data)
     const result = CryptoCurrenciesResponseSchema.safeParse(Data)//safeParse es una función de zod que valida los datos según el esquema definido.
     console.log(result)
+    if(result.success){
+        return result.data
+    }
 }   
 
 
