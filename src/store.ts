@@ -10,7 +10,7 @@ async function getCryptos() {
     const {data: {Data}} = await axios.get(url)//Desestructurando la respuesta de axios para obtener solo el objeto Data que esta dentro de data.
     //console.log(Data)
     const result = CryptoCurrenciesResponseSchema.safeParse(Data)//safeParse es una función de zod que valida los datos según el esquema definido.
-    console.log(result)
+    //console.log(result)
     if(result.success){
         return result.data
     }
@@ -24,6 +24,7 @@ async function getCryptos() {
 export const useCryptoStore = create(()=>({
     fetchCryptos: async () => {
         //console.log('Desde fetchCryptos')
-        getCryptos()
+        const cryptoCurrencies = await getCryptos()//tenemos que espear a que se resuelva la promesa o funcion asincrona
+        console.log(cryptoCurrencies)
     }
 }))
