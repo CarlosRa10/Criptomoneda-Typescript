@@ -1,6 +1,7 @@
 //"store" (almacén de estado global)
 
 import {create} from 'zustand';
+import {devtools } from 'zustand/middleware';
 import axios from 'axios';
 import { CryptoCurrenciesResponseSchema } from './schema/criptoSchema';
 import { Cryptocurrency } from "./types";
@@ -26,7 +27,7 @@ async function getCryptos() {
 //useCryptoStore: Es un hook personalizado que cualquier componente puede usar para acceder al estado o funciones del store.
 //fetchCryptos: Una función asíncrona que (por ahora) solo imprime un mensaje.
 
-export const useCryptoStore = create<CryptoStore>((set)=>({
+export const useCryptoStore = create<CryptoStore>()(devtools((set)=>({
     cryptoCurrencies: [],//Estado inicial del store, un array vacío.
     fetchCryptos: async () => {
         //console.log('Desde fetchCryptos')
@@ -36,4 +37,4 @@ export const useCryptoStore = create<CryptoStore>((set)=>({
             cryptoCurrencies//Actualiza el estado del store con el resultado de la función getCryptos.
         }))
 }
-}))
+})))
