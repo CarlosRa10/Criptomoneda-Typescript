@@ -9,9 +9,6 @@ type CryptoStore = {
   fetchCryptos: () => Promise<void>;
 };
 
-
-
-
 //create: Crea un store de Zustand.
 //useCryptoStore: Es un hook personalizado que cualquier componente puede usar para acceder al estado o funciones del store.
 //fetchCryptos: Es una función que se encarga de obtener las criptomonedas desde la API y actualizar el estado del store con los datos obtenidos.
