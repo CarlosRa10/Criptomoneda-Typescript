@@ -7,6 +7,7 @@ import { getCryptos, fetchCurrentCryptoPrice } from './services/CryptoService';/
 type CryptoStore = {
   cryptoCurrencies: Cryptocurrency[];
   result: CryptoPrice
+  loading: boolean;
   fetchCryptos: () => Promise<void>;
   fetchData: (pair:Pair) => Promise<void>;//recibe un pair de type Pair, que es un objeto con dos propiedades: currency y criptocurrency.
 };
@@ -27,6 +28,8 @@ export const useCryptoStore = create<CryptoStore>()(devtools((set)=>({
         LASTUPDATE: ''
     },
 
+    loading: false,//Estado inicial de loading, un booleano que indica si se está cargando o no.
+
     fetchCryptos: async () => {
         //console.log('Desde fetchCryptos')
         const cryptoCurrencies = await getCryptos()//tenemos que espear a que se resuelva la promesa o funcion asincrona
@@ -38,11 +41,15 @@ export const useCryptoStore = create<CryptoStore>()(devtools((set)=>({
 
     fetchData: async (pair) => {
         //console.log(pair)
+        set(()=>({
+          loading: true//Actualiza el estado de loading a true, indicando que se está cargando la información.
+        }))
         const result = await fetchCurrentCryptoPrice(pair)
         //console.log(result)//Imprimimos el resultado de la función fetchCurrentCryptoPrice.
 
         set(()=>({
-          result//Actualiza el estado del store con el resultado de la función fetchCurrentCryptoPrice.
+          result,//Actualiza el estado del store con el resultado de la función fetchCurrentCryptoPrice.
+          loading: false//Actualiza el estado de loading a false, indicando que se ha terminado de cargar la información.
         }))
     }
       
