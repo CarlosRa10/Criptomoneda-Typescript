@@ -14,8 +14,9 @@ export async function getCryptos() {
 }  
 
 export async function fetchCurrentCryptoPrice(pair: Pair) {
-    console.log(pair)
-    // const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${pair.criptocurrency}&tsyms=${pair.currency}`
-    // const {data} = await axios.get(url)
+    //console.log(pair)
+    const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${pair.criptocurrency}&tsyms=${pair.currency}`
+    const {data:{DISPLAY}} = await axios(url)
+    console.log(DISPLAY[pair.criptocurrency][pair.currency])//Para trabajar con respuesta dondes las claves son variables, se usa [] para acceder a las propiedades de un objeto.
     // return data
 }
