@@ -5,7 +5,10 @@ import { Pair } from "../types"
 import ErrorMessage from "./ErrorMessage"
 
 export default function CriptoSearchForm() {
-    const cryptocurrencies = useCryptoStore((state)=>state.cryptoCurrencies)//llamamos al store para obtener las criptomonedas y poder usarlas en el select de criptomonedas.
+    const cryptocurrencies = useCryptoStore((state)=>state.cryptoCurrencies)//llamamos al store para obtener las criptomonedas y poder usarlas en el select de criptomonedas.   
+    const fetchData = useCryptoStore((state)=>state.fetchData)
+
+
     const [pair, setPair] = useState<Pair>({
         currency: '',
         criptocurrency: ''
@@ -28,7 +31,7 @@ export default function CriptoSearchForm() {
             return
         }
         setError('') //si no hay un valor vacio, limpiamos el error
-        //Consultar la api
+        fetchData(pair) //llamamos a la función fetchData que se encarga de hacer la llamada a la API y obtener el precio de la criptomoneda seleccionada
     }
 
 

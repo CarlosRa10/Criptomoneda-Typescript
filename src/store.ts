@@ -1,12 +1,13 @@
 //"store" (almacén de estado global)
 import {create} from 'zustand';
 import {devtools } from 'zustand/middleware';
-import { Cryptocurrency } from "./types";
-import { getCryptos } from './services/CryptoService';//Importamos la función getCryptos que hace la llamada a la API para obtener las criptomonedas.
+import { Cryptocurrency, Pair } from "./types";
+import { getCryptos, fetchCurrentCryptoPrice } from './services/CryptoService';//Importamos la función getCryptos que hace la llamada a la API para obtener las criptomonedas.
 
 type CryptoStore = {
   cryptoCurrencies: Cryptocurrency[];
   fetchCryptos: () => Promise<void>;
+  fetchData: (pair:Pair) => Promise<void>;//recibe un pair de type Pair, que es un objeto con dos propiedades: currency y criptocurrency.
 };
 
 //create: Crea un store de Zustand.
@@ -22,5 +23,12 @@ export const useCryptoStore = create<CryptoStore>()(devtools((set)=>({
         set(()=>({
             cryptoCurrencies//Actualiza el estado del store con el resultado de la función getCryptos.
         }))
-}
+},
+
+    fetchData: async (pair) => {
+        //console.log(pair)
+        await fetchCurrentCryptoPrice(pair)
+    }
+      
+
 })))
