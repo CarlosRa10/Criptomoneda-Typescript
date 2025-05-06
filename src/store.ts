@@ -1,11 +1,12 @@
 //"store" (almacén de estado global)
 import {create} from 'zustand';
 import {devtools } from 'zustand/middleware';
-import { Cryptocurrency, Pair } from "./types";
+import { Cryptocurrency, CryptoPrice, Pair } from "./types";
 import { getCryptos, fetchCurrentCryptoPrice } from './services/CryptoService';//Importamos la función getCryptos que hace la llamada a la API para obtener las criptomonedas.
 
 type CryptoStore = {
   cryptoCurrencies: Cryptocurrency[];
+  result: CryptoPrice
   fetchCryptos: () => Promise<void>;
   fetchData: (pair:Pair) => Promise<void>;//recibe un pair de type Pair, que es un objeto con dos propiedades: currency y criptocurrency.
 };
@@ -16,6 +17,16 @@ type CryptoStore = {
 
 export const useCryptoStore = create<CryptoStore>()(devtools((set)=>({
     cryptoCurrencies: [],//Estado inicial del store, un array vacío.
+    //result:{} as CryptoPrice,//Estado inicial del resultado de la API, un objeto vacío. - una forma de inicializar un objeto vacio es usar as para decirle que es de un tipo especifico.
+    result: {
+        IMAGEURL: '',
+        PRICE: '',
+        HIGHDAY: '',
+        LOWDAY: '',
+        CHANGEPCT24HOUR: '',
+        LASTUPDATE: ''
+    },
+
     fetchCryptos: async () => {
         //console.log('Desde fetchCryptos')
         const cryptoCurrencies = await getCryptos()//tenemos que espear a que se resuelva la promesa o funcion asincrona
@@ -28,7 +39,11 @@ export const useCryptoStore = create<CryptoStore>()(devtools((set)=>({
     fetchData: async (pair) => {
         //console.log(pair)
         const result = await fetchCurrentCryptoPrice(pair)
-        console.log(result)//Imprimimos el resultado de la función fetchCurrentCryptoPrice.
+        //console.log(result)//Imprimimos el resultado de la función fetchCurrentCryptoPrice.
+
+        set(()=>({
+          result//Actualiza el estado del store con el resultado de la función fetchCurrentCryptoPrice.
+        }))
     }
       
 
